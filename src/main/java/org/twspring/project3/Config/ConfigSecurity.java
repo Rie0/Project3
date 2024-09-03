@@ -37,11 +37,26 @@ public class ConfigSecurity {
                 .requestMatchers("/api/v1/auth/**").permitAll()
                 //add login?
                 //ADMIN
-                .requestMatchers("/api/v1/customer/get-all").hasAuthority("ADMIN")
-//                .requestMatchers().hasAuthority("EMPLOYEE")
+                .requestMatchers("/api/v1/customer/get-all",
+                        "api/v1/employee/get-all",
+                        "api/v1/account/get-all").hasAuthority("ADMIN")
+                //Employee
+                .requestMatchers("api/v1/employee/update-my-info",
+                        "api/v1/employee/delete-my-account").hasAuthority("EMPLOYEE")
                 //CUSTOMER
                 .requestMatchers("/api/v1/customer/update-my-info",
-                        "/api/v1/customer/delete-my-account").hasAuthority("CUSTOMER")
+                        "/api/v1/customer/delete-my-account",
+                        "api/v1/account/get-account-details/{accountId}",
+                        "api/v1/account/get-my-accounts",
+                        "api/v1/account/add-new-account",
+                        "api/v1/account/deposit-money/{accountId}/amount/{amount}",
+                        "api/v1/account/withdraw-money/{accountId}/amount/{amount}",
+                        "api/v1/account/transfer-money-from/{accountId}/to/{receivingAccountId}/amount/{amount}",
+                        "api/v1/account/delete-my-account/{accountId}").hasAuthority("CUSTOMER")
+                //ADMIN/EMPLOYEE
+                .requestMatchers(
+                        "api/v1/account/activate-account/{accountId}",
+                        "api/v1/account/block/{accountId}").hasAnyAuthority("ADMIN","EMPLOYEE")
                 .and() //logout
                 .logout().logoutUrl("/api/v1/auth/logout").logoutSuccessUrl("/")
                 .deleteCookies("JSESSIONID")

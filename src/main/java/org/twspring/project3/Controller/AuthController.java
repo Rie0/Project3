@@ -18,22 +18,11 @@ import org.twspring.project3.Service.AuthService;
 public class AuthController {
     private final AuthService authService;
 
-    @PostMapping("/register-employee")
-    public ResponseEntity registerEmployee(@Valid @RequestBody EmployeeDTO employeeDTO) {
-        authService.registerAsEmployee(employeeDTO);
-        return ResponseEntity.status(200).body("Employee registered successfully");
-    }
 
-    @PostMapping("/register-customer")
-    public ResponseEntity registerCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
-        authService.registerAsCustomer(customerDTO);
-        return ResponseEntity.status(200).body("Customer registered successfully");
-    }
-
-    //Only used to add the first admin
-    @PostMapping("/register-admin")
-    public ResponseEntity registerAdmin(@Valid @RequestBody User user) {
-        authService.registerAdmin(user);
-        return ResponseEntity.status(200).body("Admin registered successfully");
-    }
+    //Only used to add the first admin, just here to make tests easier
+//    @PostMapping("/register-admin")
+//    public ResponseEntity registerAdmin(@Valid @RequestBody User user) {
+//        authService.registerAdmin(user);
+//        return ResponseEntity.status(200).body("Admin registered successfully");
+//    }
 }

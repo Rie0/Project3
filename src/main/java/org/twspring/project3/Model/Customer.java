@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Entity
 @Getter
 @Setter
@@ -26,4 +28,7 @@ public class Customer {
     @OneToOne
     @MapsId
     private User user;
+
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "customer")
+    private Set<Account> accounts;
 }

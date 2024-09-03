@@ -9,7 +9,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.twspring.project3.Api.ApiResponse;
 import org.twspring.project3.DTO.CustomerDTO;
-import org.twspring.project3.Model.Customer;
 import org.twspring.project3.Model.User;
 import org.twspring.project3.Service.CustomerService;
 
@@ -21,7 +20,12 @@ public class CustomerController {
 
     @GetMapping("/get-all") //ADMIN
     public ResponseEntity getAllCustomers() {
-        return ResponseEntity.ok(customerService.getAllCustomers());
+        return ResponseEntity.status(200).body(customerService.getAllCustomers());
+    }
+    @PostMapping("/register-customer")
+    public ResponseEntity registerCustomer(@Valid @RequestBody CustomerDTO customerDTO) {
+        customerService.registerAsCustomer(customerDTO);
+        return ResponseEntity.status(200).body("Customer registered successfully");
     }
 
     @PutMapping("/update-my-info")
